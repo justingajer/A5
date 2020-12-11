@@ -1,7 +1,7 @@
 import java.util.Comparator;
 
 /**
- * Class finds the least popular avenger. It takes the freq of each hero name and
+ * The Class finds the least popular avenger. It takes the freq of each hero name and
  * compares it with other heroes freq. If the names are different then it get the freq
  * of each name and compare them. The one that has the lowest freq will be sent to the top
  * of the output. If it is tied, then it sorts them by alphabetical order. 

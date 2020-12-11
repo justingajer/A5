@@ -2,7 +2,7 @@ import java.util.Comparator;
 
 /**
  * 
- * Class finds the most popular avenger that is based off their avenger object.
+ * The Class finds the most popular avenger that is based off their avenger object.
  * It gathers the frequency and compares them to each other, The highest frequency is
  * put at the top of the list
  * 
