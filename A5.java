@@ -25,19 +25,19 @@ public class A4 {
 	// 		{ "hawkeye", "barton" }, { "warmachine", "rhodes" }, { "spiderman", "parker" },
 	// 		{ "wintersoldier", "barnes" } };
 
-		private void addToHashMap() {
-			map.put("captainamerica", "rogers");
-			map.put("ironman", "stark");
-			map.put("blackwidow", "romanoff");
-			map.put("hulk", "banner");
-			map.put("blackpanther", "tchalla");
-			map.put("thor", "odinson");
-			map.put("hawkeye", "barton");
-			map.put("warmachine", "rhodes");
-			map.put("spiderman", "parker");
-			map.put("wintersoldier", "barnes");
+		// private void addToHashMap() {
+		// 	map.put("captainamerica", "rogers");
+		// 	map.put("ironman", "stark");
+		// 	map.put("blackwidow", "romanoff");
+		// 	map.put("hulk", "banner");
+		// 	map.put("blackpanther", "tchalla");
+		// 	map.put("thor", "odinson");
+		// 	map.put("hawkeye", "barton");
+		// 	map.put("warmachine", "rhodes");
+		// 	map.put("spiderman", "parker");
+		// 	map.put("wintersoldier", "barnes");
 	
-		}
+		// }
 	
 		
 		private int topN = 4;
