@@ -4,6 +4,7 @@ import java.util.Scanner;
 import java.util.Set;
 import java.util.TreeMap;
 import java.util.Collection;
+import java.util.Map;
 
 /**
  * COMP 2503 Winter 2020 Assignment 4
@@ -18,18 +19,44 @@ import java.util.Collection;
  */
 
 public class A4 {
-
-	public String[][] avengerRoster = { { "captainamerica", "rogers" }, { "ironman", "stark" },
-			{ "blackwidow", "romanoff" }, { "hulk", "banner" }, { "blackpanther", "tchalla" }, { "thor", "odinson" },
-			{ "hawkeye", "barton" }, { "warmachine", "rhodes" }, { "spiderman", "parker" },
-			{ "wintersoldier", "barnes" } };
-
 	
-	private int topN = 4;
-	private int totalwordcount = 0;
-	private Scanner input = new Scanner(System.in);
-	HashMap <String, Avenger> hmap = new HashMap <String, Avenger>();
+	// public String[][] avengerRoster = { { "captainamerica", "rogers" }, { "ironman", "stark" },
+	// 		{ "blackwidow", "romanoff" }, { "hulk", "banner" }, { "blackpanther", "tchalla" }, { "thor", "odinson" },
+	// 		{ "hawkeye", "barton" }, { "warmachine", "rhodes" }, { "spiderman", "parker" },
+	// 		{ "wintersoldier", "barnes" } };
+
+		private void addToHashMap() {
+			map.put("captainamerica", "rogers");
+			map.put("ironman", "stark");
+			map.put("blackwidow", "romanoff");
+			map.put("hulk", "banner");
+			map.put("blackpanther", "tchalla");
+			map.put("thor", "odinson");
+			map.put("hawkeye", "barton");
+			map.put("warmachine", "rhodes");
+			map.put("spiderman", "parker");
+			map.put("wintersoldier", "barnes");
 	
+		}
+	
+		
+		private int topN = 4;
+		private int totalwordcount = 0;
+		private Scanner input = new Scanner(System.in);
+		//a hash map that Stores avengers last name and alias 
+		private HashMap <String, String> hmap = new HashMap <String, String>();
+		// Stores the map of avengers in popular order
+		private TreeMap<Avenger, Avenger> PopAvengers = new TreeMap<Avenger, Avenger>(new PopComparator());
+	
+		//Stores the map of avengers in least popular order
+		private TreeMap<Avenger, Avenger> LeastAvengers = new TreeMap<Avenger,Avenger>(new LeastComparator()); 
+	
+		//Stores the map of avengers in alphabetical order
+		private TreeMap<Avenger, Avenger> AlphabeticalAvengers = new TreeMap<Avenger, Avenger>();
+
+		//Stores the map in a hashmap
+		private HashMap<Integer, Avenger> ListAvengers = new HashMap<Integer, Avenger>();
+		
 	
 	/* TODO:
 	 * Create the necessary hashMap and treeMap objects to keep track of the Avenger objects 
@@ -170,7 +197,10 @@ public class A4 {
 		
 		
 		System.out.println("Total number of words: " + totalwordcount);
+		
 		//System.out.println("Number of Avengers Mentioned: " + ??);
+		System.out.println("Number of Avengers Mentioned: " + ListAvengers.size());
+
 		System.out.println();
 
 		System.out.println("All avengers in the order they appeared in the input stream:");
@@ -181,15 +211,50 @@ public class A4 {
 		System.out.println("Top " + topN + " most popular avengers:");
 		// Todo: Print the most popular avengers, see the instructions for tie breaking
 		// Make sure you follow the formatting example in the sample output
+		int i = 0;
+		for (Map.Entry<Avenger, Avenger> entry:PopAvengers.entrySet()){
+		if (i<topN){
+			i++;
+			System.out.println(entry.getKey());
+		}
+		}
 		System.out.println();
 
 		System.out.println("Top " + topN + " least popular avengers:");
 		// Todo: Print the least popular avengers, see the instructions for tie breaking
 		// Make sure you follow the formatting example in the sample output
+		int z = 0;
+		for (Map.Entry<Avenger, Avenger> entry:LeastAvengers.entrySet()){
+		if (z<topN){
+			z++;
+			System.out.println(entry.getKey());
+		}
+		}
 		System.out.println();
 
 		System.out.println("All mentioned avengers in alphabetical order:");
 		// Todo: Print the list of avengers in alphabetical order
-		System.out.println();
+		for (Map.Entry<Avenger, Avenger> entry : AlphabeticalAvengers.entrySet())  {
+			System.out.println(entry.getKey());
+		}
+		
 	}
+
+
+
+/**
+ * Get the key in a hashmap from value, Found this online
+ * <https://www.techiedelight.com/get-map-key-from-value-java/>
+ * 
+ */
+
+ public static <K, V> K getkey(Map<K, V> hmap, V value){
+	 for(K key : hmap.keySet()){
+		 if (value.equals(hmap.get(key))){
+			 return key;
+		 }
+	 }
+	 return null;
+ }
+
 }
