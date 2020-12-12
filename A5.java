@@ -20,10 +20,10 @@ import java.util.Map;
 
 public class A4 {
 	
-	// public String[][] avengerRoster = { { "captainamerica", "rogers" }, { "ironman", "stark" },
-	// 		{ "blackwidow", "romanoff" }, { "hulk", "banner" }, { "blackpanther", "tchalla" }, { "thor", "odinson" },
-	// 		{ "hawkeye", "barton" }, { "warmachine", "rhodes" }, { "spiderman", "parker" },
-	// 		{ "wintersoldier", "barnes" } };
+	public String[][] avengerRoster = { { "captainamerica", "rogers" }, { "ironman", "stark" },
+			{ "blackwidow", "romanoff" }, { "hulk", "banner" }, { "blackpanther", "tchalla" }, { "thor", "odinson" },
+	 		{ "hawkeye", "barton" }, { "warmachine", "rhodes" }, { "spiderman", "parker" },
+	 		{ "wintersoldier", "barnes" } };
 
 		// private void addToHashMap() {
 		// 	map.put("captainamerica", "rogers");
@@ -43,20 +43,21 @@ public class A4 {
 		private int topN = 4;
 		private int totalwordcount = 0;
 		private Scanner input = new Scanner(System.in);
-		//a hash map that Stores avengers last name and alias 
-		private HashMap <String, String> hmap = new HashMap <String, String>();
+
+		//Hashmap with Avenger alias as key holding Avenger Object data
+		private HashMap <String, Avenger> hmap = new HashMap <String, Avenger>();
+
 		// Stores the map of avengers in popular order
-		private TreeMap<Avenger, Avenger> PopAvengers = new TreeMap<Avenger, Avenger>(new PopComparator());
+		private TreeMap<Avenger, Avenger> mostPopAvengers = new TreeMap<Avenger, Avenger>(new PopComparator());
 	
 		//Stores the map of avengers in least popular order
-		private TreeMap<Avenger, Avenger> LeastAvengers = new TreeMap<Avenger,Avenger>(new LeastComparator()); 
+		private TreeMap<Avenger, Avenger> leastPopAvengers = new TreeMap<Avenger,Avenger>(new LeastComparator()); 
 	
 		//Stores the map of avengers in alphabetical order
-		private TreeMap<Avenger, Avenger> AlphabeticalAvengers = new TreeMap<Avenger, Avenger>();
+		private TreeMap<Avenger, Avenger> alphabeticalAvengers = new TreeMap<Avenger, Avenger>();
 
-		//Stores the map in a hashmap
-		private HashMap<Integer, Avenger> ListAvengers = new HashMap<Integer, Avenger>();
-		
+		//Treemap of avengers in mention order
+		private TreeMap<Avenger,Avenger> mentionOrderAvengers = new TreeMap<>(new MentionIndexComparator());
 	
 	/* TODO:
 	 * Create the necessary hashMap and treeMap objects to keep track of the Avenger objects 
@@ -68,7 +69,6 @@ public class A4 {
 	 * The other three orderings must be created by passing the corresponding Comparators to the 
 	 * TreeMap constructor. 
 	 */
-	
 	public static void main(String[] args) {
 		A4 a4 = new A4();
 		a4.run();
@@ -131,9 +131,6 @@ public class A4 {
 			}
 		}
 	}
-	
-	
-	
 	
 	private String cleanWord(String next) {
 		// First, if there is an apostrophe, the substring
@@ -199,7 +196,7 @@ public class A4 {
 		System.out.println("Total number of words: " + totalwordcount);
 		
 		//System.out.println("Number of Avengers Mentioned: " + ??);
-		System.out.println("Number of Avengers Mentioned: " + ListAvengers.size());
+		System.out.println("Number of Avengers Mentioned: " + listAvengers.size());
 
 		System.out.println();
 
@@ -212,7 +209,7 @@ public class A4 {
 		// Todo: Print the most popular avengers, see the instructions for tie breaking
 		// Make sure you follow the formatting example in the sample output
 		int i = 0;
-		for (Map.Entry<Avenger, Avenger> entry:PopAvengers.entrySet()){
+		for (Map.Entry<Avenger, Avenger> entry:mostPopAvengers.entrySet()){
 		if (i<topN){
 			i++;
 			System.out.println(entry.getKey());
@@ -224,7 +221,7 @@ public class A4 {
 		// Todo: Print the least popular avengers, see the instructions for tie breaking
 		// Make sure you follow the formatting example in the sample output
 		int z = 0;
-		for (Map.Entry<Avenger, Avenger> entry:LeastAvengers.entrySet()){
+		for (Map.Entry<Avenger, Avenger> entry:leastPopAvengers.entrySet()){
 		if (z<topN){
 			z++;
 			System.out.println(entry.getKey());
@@ -234,7 +231,7 @@ public class A4 {
 
 		System.out.println("All mentioned avengers in alphabetical order:");
 		// Todo: Print the list of avengers in alphabetical order
-		for (Map.Entry<Avenger, Avenger> entry : AlphabeticalAvengers.entrySet())  {
+		for (Map.Entry<Avenger, Avenger> entry : alphabeticalAvengers.entrySet())  {
 			System.out.println(entry.getKey());
 		}
 		
@@ -245,10 +242,8 @@ public class A4 {
 /**
  * Get the key in a hashmap from value, Found this online
  * <https://www.techiedelight.com/get-map-key-from-value-java/>
- * 
  */
-
- public static <K, V> K getkey(Map<K, V> hmap, V value){
+public static <K, V> K getkey(Map<K, V> hmap, V value){
 	 for(K key : hmap.keySet()){
 		 if (value.equals(hmap.get(key))){
 			 return key;
