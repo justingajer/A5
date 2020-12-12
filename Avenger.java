@@ -4,6 +4,7 @@ public class Avenger implements Comparable<Avenger>{
 	private String lastName;
 	private int frequencyMentioned;
 	private int sequenceMentioned;
+
 	/**
 	 * Class Constructor. Instantiates an Avenger object of the specified alias and lastName, with a frequency mentioned of 0.
 	 * @param alias - String representation of the Avenger alias.
@@ -28,6 +29,20 @@ public class Avenger implements Comparable<Avenger>{
 		this.lastName = lastName;
 		this.frequencyMentioned = frequencyMentioned;
 		sequenceMentioned = 0;
+	}
+
+	/**
+	 * Class Constructor. Instantiates an Avenger object of the specified alias, lastName, and mention index (mentionIndex). 
+	 * Used to keep track the point that an Avenger is mentioned.
+	 * @param sequenceMentioned
+	 * @param alias
+	 * @param lastName
+	 */
+	public Avenger(int mentionIndex, String alias, String lastName) {
+		heroAlias = alias;
+		this.lastName = lastName;
+		frequencyMentioned = 1;
+		sequenceMentioned = mentionIndex;
 	}
 	
 	/**
@@ -95,7 +110,6 @@ public class Avenger implements Comparable<Avenger>{
 	
 	/**
 	 * Comparable implementation. Used to order Avenger objects by increasing alphabetic order of heroAlias.
-	 * TODO: @return ??
 	 */
 	public int compareTo(Avenger other) {
 		return heroAlias.compareTo(other.getAlias());
